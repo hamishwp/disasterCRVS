@@ -28,6 +28,9 @@ LoadLibraries<-function(packred){
   library(raster)
   library(geosphere)
   library(terra)
+  library(rworldmap)
+  library(rworldxtra)
+  library(eurostat)
   
 }
 

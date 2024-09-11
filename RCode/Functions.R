@@ -709,9 +709,6 @@ InterpDay<-function(ndata,day){
   return(val)
 }
 
-library(rworldmap)
-library(rworldxtra)
-library(sp)
 coords2country = function(points,iso=T)
 {  
   if(dim(points)[2]!=2) stop("coords2country Error: long/lat coords are invalid")
@@ -747,35 +744,6 @@ countriesbbox<-function(iso3){
   
   return(c(mnlo,mnla,mxlo,mxla))
   
-}
-
-PlotDisaster<-function(pop,dfpoly,bbox=NULL,map=FALSE,ncity=1,namer="Disaster",filer="./"){
-  
-  if(is.null(bbox)) bbox<-as.numeric(c(min(rownames(pop)),min(colnames(pop)),max(rownames(pop)),max(colnames(pop))))
-  longData<-reshape2::melt(pop)
-  longData<-longData[longData$value!=0,]
-  
-  cities<-maps::world.cities%>%filter(lat>bbox[2]&lat<bbox[4]&long>bbox[1]&long<bbox[3])%>%arrange(desc(pop))
-  if(ncity>1){wordcloud::wordcloud(words=cities$name,freq = cities$pop,max.words = 30,scale = c(2.5,0.2))}
-  cities<-slice(cities,1:ncity)
-  
-  p<-ggplot(longData, aes(x = Var1, y = Var2)) + 
-    geom_raster(aes(fill=value)) + 
-    scale_fill_gradient(low="gray80", high="black") +
-    labs(x="Longitude", y="Latitude", title=namer) +
-    theme_bw() + theme(axis.text.x=element_text(size=9, angle=0, vjust=0.3),
-                       axis.text.y=element_text(size=9),
-                       plot.title=element_text(size=11))
-  for (j in unique(dfpoly$ncontour)){
-    tp<-filter(dfpoly,ncontour==j)
-    p<-p+geom_polygon(data = tp,aes(x=Longitude,y=Latitude,group=Intensity,colour=Intensity),alpha=0,na.rm = T,size=2)+
-      scale_color_gradient(low="mistyrose2", high="red")
-  }
-  p<-p+geom_label(data = cities, aes(long, lat, label = name), size = 4, fontface = "bold", nudge_x = 0.05*(bbox[3]-bbox[1]))
-  
-  print(p)
-  if(!is.null(filer)) ggsave(paste0(namer,".eps"), plot=p,path = filer,width = 9,height = 7.)
-  return(p)
 }
 
 # GetMapObj<-function(bbox,world=NULL){
