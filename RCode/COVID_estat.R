@@ -22,7 +22,8 @@ mary%>%ggplot(aes(group=ISO2))+geom_line(aes(Year,Vital_Rate,colour=ISO2))+scale
 
 #@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ DEATHS @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@#
 # Get the data from estat
-dery<-get_eurostat("demo_r_deaths")
+# dery<-get_eurostat("demo_r_deaths")
+dery<-get_eurostat("demo_r_mwk_ts")
 # Remove some of the columns that we don't need
 dery%<>%dplyr::select(-unit,-freq)
 # Convert time to year
