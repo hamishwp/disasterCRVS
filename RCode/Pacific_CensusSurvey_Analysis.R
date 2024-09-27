@@ -24,11 +24,13 @@ PC$`Collection Type`[!PC$`Collection Type`%in%survys]<-"Other Census and Surveys
 # Group all the MICS
 PC$`Collection Type`[grepl("multiple",PC$`Collection Type`,ignore.case = T)]<-"Multiple Indicator Cluster Survey"
 # Now wrangle into most recent for each survey collection type, per country
-PC%<>%filter(`Collection Type`%in%survys)%>%
+PC%<>%filter(`Collection Type`%in%unique(PC$`Collection Type`))%>%
   group_by(Country,`Collection Type`)%>%
   reframe(Year=max(Year))%>%
   pivot_wider(names_from = `Collection Type`, values_from = Year)
 # Sort the order out
-PC<-PC[,c(1,4,5,2,3)]
+PC<-PC[,c(1,4,5,6,2,3)]
+# Adjust column names
+colnames(PC)<-c("Country","Census","MICS","DHS","HIES","Other")
 # Save out the results
 openxlsx::write.xlsx(PC,"./data/Cleaned_PC_CensusSurvey.xlsx")
