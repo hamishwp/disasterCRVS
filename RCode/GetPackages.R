@@ -2,6 +2,8 @@
 directory<-"./"
 # We love this
 options(stringsAsFactors = FALSE)
+# Create the data directory
+dir.create("./data",showWarnings = F)
 
 GetSourceFiles<-function(packred){
   
