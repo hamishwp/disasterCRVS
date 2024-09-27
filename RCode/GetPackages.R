@@ -7,7 +7,7 @@ GetSourceFiles<-function(packred){
   
   #@@@@@ SOURCE FILES @@@@@#
   # Basic functions:
-  source(paste0(directory,'RCode/Setup/Functions.R'))
+  source(paste0(directory,'RCode/Functions.R'))
 }
 
 LoadLibraries<-function(packred){
@@ -36,10 +36,9 @@ LoadLibraries<-function(packred){
 
 GetPackages<-function(packred){
   
-  list.of.packages <- c("dplyr", "ggplot2","sf","tidyverse","openxlsx","pracma",
-                        "geojsonR", "gstat", "rgdal", "RColorBrewer","reshape2",
-                        "ggthemes","countrycode","rworldmap","rworldxtra","chron",
-                        "openxlsx","rJava","eurostat","OpenStreetMap","osmdata")
+  list.of.packages <- c("dplyr", "ggplot2","tidyverse","openxlsx","pracma",
+                        "RColorBrewer","reshape2","ggthemes","countrycode",
+                        "openxlsx","eurostat","readr","openxlsx")
   
   new.packages <- list.of.packages[!(list.of.packages %in% installed.packages()[,"Package"])]
   if(length(new.packages)>0) install.packages(new.packages, repos='http://cran.us.r-project.org')
