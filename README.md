@@ -1,6 +1,6 @@
 # disasterCRVS
 
-Some basic analyses of the overlap between civil registration and vital statistic data and disasters, to be compiled into the background paper on "Disaster statistics and CRVS systems: Background paper on understanding the nexus between disaster-related statistics and civil registration and vital statistics (CRVS) systems". This background paper will be first drafted for the Fourth Global Expert Forum for Producers and Users of Disaster Related Statistics. The event is hosted at the United Nations Conference Center, Economic Commission for Africa, Addis Ababa, Ethiopia and will take place between the 28th October to 1st November 2024.
+This repository contains some basic analyses of the overlap between civil registration and vital statistic data and disasters. This data is to be compiled and presented in the background paper on "Disaster statistics and CRVS systems: Background paper on understanding the nexus between disaster-related statistics and civil registration and vital statistics (CRVS) systems". This background paper will be first drafted for the [Fourth Global Expert Forum for Producers and Users of Disaster Related Statistics](https://www.uneca.org/eca-events/fourth-global-expert-forum-producers-and-users-disaster-related-statistics). The event is hosted at the United Nations Conference Center, Economic Commission for Africa, Addis Ababa, Ethiopia and will take place between the 28th October to 1st November 2024.
 
 ## Code Structure
 
