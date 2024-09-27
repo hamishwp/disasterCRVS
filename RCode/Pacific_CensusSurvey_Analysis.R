@@ -1,5 +1,7 @@
 # Download the data
 PC <- readr::read_csv("https://sdd.spc.int/census-and-survey-calendar/export")
+# Remove any data that has not already occurred
+PC%<>%filter(Year<=2024)
 # Which surveys are we interested in?
 survys<-c("Population and Housing Census",
           "Household Income and Expenditure Survey",
@@ -32,5 +34,8 @@ PC%<>%filter(`Collection Type`%in%unique(PC$`Collection Type`))%>%
 PC<-PC[,c(1,4,5,6,2,3)]
 # Adjust column names
 colnames(PC)<-c("Country","Census","MICS","DHS","HIES","Other")
+# Just reduce the length of some country names
+PC$Country<-str_replace_all(str_replace_all(PC$Country," \\(Republic of\\)","")," \\(CNMI\\)","")
+PC$Country[PC$Country=="Federated States of Micronesia"]<-"Micronesia"
 # Save out the results
 openxlsx::write.xlsx(PC,"./data/Cleaned_PC_CensusSurvey.xlsx")
