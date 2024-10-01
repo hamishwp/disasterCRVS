@@ -35,7 +35,7 @@ p<-mary%>%filter(Year<=2022)%>%
 # Save the figure
 ggsave("CrudeMarriageRate_Year.png", plot=p,path = 'Plots/',width = 8,height = 5)
 # Add country to the dataframe
-mary%<>%mutate(Country=convIso3Country(convIso2Iso3(ISO2)))
+mary%<>%mutate(Country=convIso3Country(convIso2Iso3(ISO2))); mary$Country[mary$geo=="EL"]<-"Greece"; mary$Country[mary$geo=="UK"]<-"United Kingdom"
 # Now to calculate the outlier probability. First add mean and sd
 mary%<>%left_join(mary%>%filter(Year<2021)%>%
                     group_by(ISO2)%>%
@@ -43,9 +43,12 @@ mary%<>%left_join(mary%>%filter(Year<2021)%>%
                             sd_bl=sd(Vital_Rate,na.rm=T)),
                   by=c("ISO2"))
 mary%<>%mutate(Norm=0.5-abs(0.5-pnorm(Vital_Rate, mean=mean_bl,sd=sd_bl,lower.tail = F)),
-               Severity=-log(Norm))
+               Severity=-log(Norm))%>%
+  filter(Norm<0.05)%>%
+  dplyr::select(Country,Year,Vital_Rate,Severity)
 # Now let's plot that!
-write.csv(mary%>%filter(Norm<0.05),"./data/COVID_outlierISOs.csv")
+write.csv(mary%>%mutate(across(where(is.numeric), ~ round(., 2))),
+           "./data/COVID_outlierISOs.csv", row.names = FALSE)
 
 #@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ DEATHS @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@#
 # Get the data from estat
