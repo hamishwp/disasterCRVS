@@ -4,6 +4,7 @@ directory<-"./"
 options(stringsAsFactors = FALSE)
 # Create the data directory
 dir.create("./data",showWarnings = F)
+dir.create("./Plots",showWarnings = F)
 
 GetSourceFiles<-function(packred){
   
@@ -18,20 +19,9 @@ LoadLibraries<-function(packred){
   library(magrittr)
   library(tidyverse)
   library(ggplot2)
-  library(sp)
-  library(sf)
-  library(ggmap)
-  library(geojsonR)
   library(countrycode)
   library(stringr)
   library(pracma)
-  library(parallel)
-  library(gstat)
-  library(raster)
-  library(geosphere)
-  library(terra)
-  library(rworldmap)
-  library(rworldxtra)
   library(eurostat)
   
 }
